@@ -62,6 +62,11 @@
           "type": "boolean",
           "default": false,
           "description": "Force using swaymsg to set transparency"
+        },
+        "glassit.force_transset": {
+          "type": "boolean",
+          "default": false,
+          "description": "Force using transset to set transparency"
         }
       }
     },

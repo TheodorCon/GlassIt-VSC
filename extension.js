@@ -96,7 +96,25 @@ function activate(context) {
                     console.log(`GlassIt: set alpha ${alpha}`);
                     config().update('alpha', alpha, true);
                 })
-            } else {
+
+            } 
+            else if (config().get('force_transset') === true)
+            {
+                for (const codeWindowId of codeWindowIds) {
+                    
+                    cp.exec(`transset -i ${codeWindowId} ${alpha/100}`, function (error, stdout, stderr) {
+                        if (error) {
+                            console.error(`GlassIT error: ${stderr.ToString()}`);
+                            return;
+                        }
+
+                        console.log(stdout.toString());
+                        console.log(`GlassIt: set alpha ${alpha}`);
+                        config().update('alpha', alpha, true);
+                    });
+                }
+            } 
+            else {
                 for (const codeWindowId of codeWindowIds) {
                     cp.exec(`xprop  -id ${codeWindowId} -f _NET_WM_WINDOW_OPACITY 32c -set _NET_WM_WINDOW_OPACITY $(printf 0x%x $((0xffffffff * ${alpha} / 255)))`, function (error, stdout, stderr) {
                         if (error) {
